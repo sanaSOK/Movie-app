@@ -1,0 +1,260 @@
+/* Premium MovieCard Design Styles */
+
+.movie-card {
+  position: relative;
+  background-color: var(--bg-surface);
+  border-radius: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-slow), border-color var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--primary);
+  box-shadow:
+    0 20px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(139, 92, 246, 0.25);
+  background-color: var(--bg-surface-hover);
+}
+
+.card-poster-wrapper {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background-color: var(--bg-surface-hover);
+}
+
+.card-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.movie-card:hover .card-poster {
+  transform: scale(1.08);
+}
+
+/* Glass Blur Overlay */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(10, 10, 15, 0.95) 0%,
+      rgba(10, 10, 15, 0.4) 55%,
+      rgba(10, 10, 15, 0.1) 100%);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-normal);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.movie-card:hover .card-overlay {
+  opacity: 1;
+}
+
+/* Play Button with Neon Gradient Glow */
+.card-play-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform var(--transition-normal), opacity var(--transition-normal), box-shadow var(--transition-fast);
+  z-index: 5;
+}
+
+.card-play-btn:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+}
+
+.movie-card:hover .card-play-btn {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Glassmorphic Badges */
+.card-quality-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(6, 182, 212, 0.18);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  backdrop-filter: blur(8px);
+  color: #22d3ee;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+.card-rating-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  backdrop-filter: blur(8px);
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+/* Glassmorphic Bookmark/Favorite Button */
+.card-favorite-btn {
+  position: absolute;
+  top: 48px;
+  right: 12px;
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: transform var(--transition-normal), opacity var(--transition-normal), background var(--transition-fast), color var(--transition-fast);
+}
+
+.movie-card:hover .card-favorite-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+.card-favorite-btn.is-active {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-favorite-btn.is-active:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: scale(1.1);
+}
+
+/* Slide-Up Genres Container */
+.card-genres-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  position: absolute;
+  bottom: 16px;
+  left: 12px;
+  right: 12px;
+  transform: translateY(15px);
+  opacity: 0;
+  transition: transform var(--transition-slow), opacity var(--transition-slow);
+  z-index: 4;
+}
+
+.movie-card:hover .card-genres-container {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card-genre-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  color: var(--text-primary);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Details Section */
+.card-info {
+  padding: 14px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: transparent;
+  transition: background-color var(--transition-normal);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transition-fast);
+}
+
+.movie-card:hover .card-title {
+  color: var(--primary);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.card-type-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-year-text {
+  font-weight: 500;
+}

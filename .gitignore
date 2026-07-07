@@ -1,0 +1,32 @@
+# Dependency directories
+node_modules/
+**/node_modules/
+
+# Environment files (contains credentials and secrets)
+.env
+.env.local
+.env.*.local
+**/ .env
+backend/.env
+movie-app/.env
+
+# Local development mock database files
+backend/src/config/mock-db/
+backend/src/config/mock-db/*.json
+
+# Uploads directory (user avatars and dynamic media assets)
+backend/src/uploads/*
+!backend/src/uploads/.gitkeep
+
+# System and logs
+*.log
+backend/db-status.log
+.DS_Store
+Thumbs.db
+
+# Build directories
+dist/
+**/dist/
+.vite/
+**/.vite/
+.eslintcache

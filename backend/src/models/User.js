@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  resetPasswordOTP: {
+    type: String,
+  },
+  resetPasswordOTPExpires: {
+    type: Date,
+  },
 });
 
 userSchema.post('save', async function(doc) {

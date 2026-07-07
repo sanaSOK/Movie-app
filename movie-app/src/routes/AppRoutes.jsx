@@ -12,6 +12,7 @@ import Request from '../pages/Request';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Profile from '../pages/Profile';
+import ForgotPassword from '../pages/ForgotPassword';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -29,6 +30,7 @@ export default function AppRoutes() {
           <Route path="/request" element={<Request />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Route>

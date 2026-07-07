@@ -68,4 +68,60 @@ export const authService = {
     }
     return user;
   },
+
+  async forgotPassword(email) {
+    const user = await User.findOne({ email });
+    if (!user) {
+      const error = new Error('User with this email does not exist');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
+    await User.findByIdAndUpdate(user._id, {
+      resetPasswordOTP: otp,
+      resetPasswordOTPExpires: expires,
+    }, { new: true });
+
+    console.log('\n\x1b[36m%s\x1b[0m', '------------------------------------------------------------');
+    console.log('\x1b[36m%s\x1b[0m', `📬 [EMAIL SIMULATOR] Password Reset OTP for ${email}:`);
+    console.log('\x1b[1m\x1b[33m%s\x1b[0m', `                    👉  ${otp}  👈`);
+    console.log('\x1b[36m%s\x1b[0m', '------------------------------------------------------------\n');
+
+    return { message: 'OTP sent successfully to email' };
+  },
+
+  async resetPassword(email, otp, newPassword) {
+    const user = await User.findOne({ email });
+    if (!user) {
+      const error = new Error('User with this email does not exist');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!user.resetPasswordOTP || user.resetPasswordOTP !== otp) {
+      const error = new Error('Invalid OTP');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const isExpired = new Date() > new Date(user.resetPasswordOTPExpires);
+    if (isExpired) {
+      const error = new Error('OTP has expired');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await User.findByIdAndUpdate(user._id, {
+      password: hashedPassword,
+      resetPasswordOTP: null,
+      resetPasswordOTPExpires: null,
+    }, { new: true });
+
+    return { message: 'Password has been reset successfully' };
+  }
 };

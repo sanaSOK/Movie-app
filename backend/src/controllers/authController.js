@@ -41,4 +41,30 @@ export const authController = {
       next(error);
     }
   },
+
+  async forgotPassword(req, res, next) {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return ResponseHelper.error(res, 'Email is required', 400);
+      }
+      const result = await authService.forgotPassword(email);
+      return ResponseHelper.success(res, result, 'Reset OTP sent successfully');
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async resetPassword(req, res, next) {
+    try {
+      const { email, otp, newPassword } = req.body;
+      if (!email || !otp || !newPassword) {
+        return ResponseHelper.error(res, 'Email, OTP, and new password are required', 400);
+      }
+      const result = await authService.resetPassword(email, otp, newPassword);
+      return ResponseHelper.success(res, result, 'Password reset successfully');
+    } catch (error) {
+      next(error);
+    }
+  },
 };

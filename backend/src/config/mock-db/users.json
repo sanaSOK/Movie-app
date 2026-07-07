@@ -28,10 +28,10 @@
   },
   {
     "_id": "mock-user-1783416141696-esqnw8jh4",
-    "username": "you",
+    "username": "yoo",
     "email": "you@gmail.com",
     "password": "$2a$10$Ykwwc7roRqBVX6ZxnbwVvOCxVze76x1BfGReASPn8bzu5iKyuTuIC",
-    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=default",
+    "avatar": "/uploads/avatar-1783418926687-614266713.png",
     "role": "user",
     "createdAt": "2026-07-07T09:22:21.696Z"
   }

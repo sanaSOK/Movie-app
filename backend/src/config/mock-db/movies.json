@@ -1,0 +1,470 @@
+[
+  {
+    "id": "html5-foundation",
+    "title": "HTML5: Structure and Semantics",
+    "type": "Movie",
+    "poster": "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.3,
+    "quality": "4K HD",
+    "year": 2026,
+    "status": "Completed",
+    "country": "USA",
+    "synopsis": "Learn the fundamentals of web page design. Understand semantic HTML5 tags, document structures, meta tags, search engine optimization best practices, forms validation, and accessibility standards.",
+    "genres": [
+      "HTML5",
+      "Frontend",
+      "Structure",
+      "Basics"
+    ],
+    "episodes": [
+      {
+        "id": "html-ep1",
+        "number": 1,
+        "title": "Introduction to HTML5 & Web Structure",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Stream 1 (CDN)",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          },
+          {
+            "label": "Mirror 2",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "html-ep2",
+        "number": 2,
+        "title": "Semantic Tags and Accessibilities",
+        "duration": "55m",
+        "sources": [
+          {
+            "label": "Stream 1 (CDN)",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [
+      {
+        "id": "c1",
+        "user": "WebLearner",
+        "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=learner",
+        "text": "This HTML tutorial laid a solid foundation for me. Highly recommended!",
+        "date": "2 days ago"
+      }
+    ],
+    "_id": "mock-movie-html5-foundation",
+    "createdAt": "2026-07-07T09:01:24.980Z"
+  },
+  {
+    "id": "css3-styling",
+    "title": "CSS3: Cinematic Layouts & Animations",
+    "type": "Drama",
+    "poster": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.5,
+    "quality": "Ultra HD",
+    "year": 2026,
+    "status": "Completed",
+    "country": "USA",
+    "synopsis": "Unlock the power of styling sheets. Master Flexbox alignment patterns, Grid layouts, keyframe animations, transition effects, CSS variables, and modern visual trends such as Glassmorphic components.",
+    "genres": [
+      "CSS3",
+      "Design",
+      "Aesthetics",
+      "Responsive"
+    ],
+    "episodes": [
+      {
+        "id": "css-ep1",
+        "number": 1,
+        "title": "Episode 1: Mastering Flexbox and Grids",
+        "duration": "50m",
+        "sources": [
+          {
+            "label": "CDN Server",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "css-ep2",
+        "number": 2,
+        "title": "Episode 2: Mastering Flexbox and Grids",
+        "duration": "50m",
+        "sources": [
+          {
+            "label": "CDN Server",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "css-ep3",
+        "number": 3,
+        "title": "Episode 3: Mastering Flexbox and Grids",
+        "duration": "50m",
+        "sources": [
+          {
+            "label": "CDN Server",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "css-ep4",
+        "number": 4,
+        "title": "Episode 4: Mastering Flexbox and Grids",
+        "duration": "50m",
+        "sources": [
+          {
+            "label": "CDN Server",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "css-ep5",
+        "number": 5,
+        "title": "Episode 5: Mastering Flexbox and Grids",
+        "duration": "50m",
+        "sources": [
+          {
+            "label": "CDN Server",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [],
+    "_id": "mock-movie-css3-styling",
+    "createdAt": "2026-07-07T09:01:24.981Z"
+  },
+  {
+    "id": "javascript-logic",
+    "title": "JavaScript: Modern Logic & ES6",
+    "type": "Drama",
+    "poster": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.6,
+    "quality": "Ultra HD",
+    "year": 2026,
+    "status": "Completed",
+    "country": "USA",
+    "synopsis": "Dive deep into scripting logic. Master variables hoisting, scopes, event looping, promises, asynchronous await patterns, localStorage integrations, and modern ES6 functions.",
+    "genres": [
+      "JavaScript",
+      "Logic",
+      "Asynchronous",
+      "Core"
+    ],
+    "episodes": [
+      {
+        "id": "js-ep1",
+        "number": 1,
+        "title": "Episode 1: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "js-ep2",
+        "number": 2,
+        "title": "Episode 2: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "js-ep3",
+        "number": 3,
+        "title": "Episode 3: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "js-ep4",
+        "number": 4,
+        "title": "Episode 4: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "js-ep5",
+        "number": 5,
+        "title": "Episode 5: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "js-ep6",
+        "number": 6,
+        "title": "Episode 6: JavaScript Engines and Variables Scope",
+        "duration": "1h 05m",
+        "sources": [
+          {
+            "label": "HighSpeed Stream",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [],
+    "_id": "mock-movie-javascript-logic",
+    "createdAt": "2026-07-07T09:01:24.981Z"
+  },
+  {
+    "id": "reactjs-atomic",
+    "title": "React JS: Functional Components & Hooks",
+    "type": "Anime",
+    "poster": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.8,
+    "quality": "4K HD",
+    "year": 2026,
+    "status": "Ongoing",
+    "country": "USA",
+    "synopsis": "Build scalable web applications with React. Discover state management using useState, side-effects triggering with useEffect, context APIs, custom hook abstractions, and router controllers.",
+    "genres": [
+      "React",
+      "Frameworks",
+      "Components",
+      "Hooks"
+    ],
+    "episodes": [
+      {
+        "id": "react-ep1",
+        "number": 1,
+        "title": "Episode 1: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep2",
+        "number": 2,
+        "title": "Episode 2: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep3",
+        "number": 3,
+        "title": "Episode 3: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep4",
+        "number": 4,
+        "title": "Episode 4: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep5",
+        "number": 5,
+        "title": "Episode 5: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep6",
+        "number": 6,
+        "title": "Episode 6: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep7",
+        "number": 7,
+        "title": "Episode 7: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      },
+      {
+        "id": "react-ep8",
+        "number": 8,
+        "title": "Episode 8: Components Rendering & Virtual DOM",
+        "duration": "45m",
+        "sources": [
+          {
+            "label": "Fast CDN",
+            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [],
+    "_id": "mock-movie-reactjs-atomic",
+    "createdAt": "2026-07-07T09:01:24.981Z"
+  },
+  {
+    "id": "vuejs-composition",
+    "title": "Vue JS: Composition API & Reactivity",
+    "type": "Anime",
+    "poster": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.4,
+    "quality": "HD",
+    "year": 2026,
+    "status": "Completed",
+    "country": "USA",
+    "synopsis": "Build lightweight applications with Vue. Explore the reactivity compiler, ref vs reactive models, computed watchers, slots routing, pinia store, and modular project scaffolds.",
+    "genres": [
+      "Vue",
+      "Frameworks",
+      "Reactivity",
+      "Modular"
+    ],
+    "episodes": [
+      {
+        "id": "vue-ep1",
+        "number": 1,
+        "title": "Episode 1: Composition API and Reactivity Ref",
+        "duration": "40m",
+        "sources": [
+          {
+            "label": "VueCDN",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "vue-ep2",
+        "number": 2,
+        "title": "Episode 2: Composition API and Reactivity Ref",
+        "duration": "40m",
+        "sources": [
+          {
+            "label": "VueCDN",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "vue-ep3",
+        "number": 3,
+        "title": "Episode 3: Composition API and Reactivity Ref",
+        "duration": "40m",
+        "sources": [
+          {
+            "label": "VueCDN",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      },
+      {
+        "id": "vue-ep4",
+        "number": 4,
+        "title": "Episode 4: Composition API and Reactivity Ref",
+        "duration": "40m",
+        "sources": [
+          {
+            "label": "VueCDN",
+            "url": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [],
+    "_id": "mock-movie-vuejs-composition",
+    "createdAt": "2026-07-07T09:01:24.981Z"
+  },
+  {
+    "id": "nodejs-backend",
+    "title": "Node.js: Backend API Architectures",
+    "type": "Movie",
+    "poster": "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?w=500&auto=format&fit=crop&q=60",
+    "banner": "https://images.unsplash.com/photo-1627856014757-195f1624b4f0?w=1200&auto=format&fit=crop&q=80",
+    "rating": 9.7,
+    "quality": "4K HD",
+    "year": 2026,
+    "status": "Completed",
+    "country": "USA",
+    "synopsis": "Construct powerful APIs. Learn Node.js file system APIs, Express routing triggers, MongoDB schemas, JWT authentication tokens implementation, and cross-origin security rules.",
+    "genres": [
+      "NodeJS",
+      "Backend",
+      "API",
+      "Database"
+    ],
+    "episodes": [
+      {
+        "id": "node-ep1",
+        "number": 1,
+        "title": "Full Backend Service Course",
+        "duration": "3h 15m",
+        "sources": [
+          {
+            "label": "Highspeed CDN",
+            "url": "https://www.w3schools.com/html/movie.mp4"
+          }
+        ]
+      }
+    ],
+    "comments": [],
+    "_id": "mock-movie-nodejs-backend",
+    "createdAt": "2026-07-07T09:01:24.981Z"
+  }
+]

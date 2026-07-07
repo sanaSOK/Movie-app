@@ -55,4 +55,27 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-export const Movie = mongoose.model('Movie', movieSchema);
+movieSchema.post('save', async function(doc) {
+  try {
+    const data = doc.toObject();
+    data._id = doc._id.toString();
+    await MovieMock.createWithId(data);
+  } catch (err) {
+    console.error('Failed to sync saved Movie to mock-db:', err);
+  }
+});
+
+import { MovieMock } from '../config/mockDb.js';
+
+const MongooseMovie = mongoose.model('Movie', movieSchema);
+
+export const Movie = new Proxy(MongooseMovie, {
+  get(target, prop, receiver) {
+    if (mongoose.connection.readyState !== 1) {
+      if (prop in MovieMock) {
+        return MovieMock[prop];
+      }
+    }
+    return Reflect.get(target, prop, receiver);
+  }
+});

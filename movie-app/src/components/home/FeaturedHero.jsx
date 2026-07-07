@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Play, Bookmark, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useFavorite } from '../../context/FavoriteContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function FeaturedHero({ shows }) {
   const { toggleWatchlist, isBookmarked } = useFavorite();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   
   // Create copies for infinite seamless carousel loop
   const slides = shows && shows.length > 0 ? [...shows, shows[0]] : [];
@@ -127,7 +130,13 @@ export default function FeaturedHero({ shows }) {
                     <span>Play Now</span>
                   </Link>
                   <button 
-                    onClick={() => toggleWatchlist(show)} 
+                    onClick={() => {
+                      if (!isAuthenticated) {
+                        navigate('/login');
+                        return;
+                      }
+                      toggleWatchlist(show);
+                    }} 
                     className={`btn-secondary hero-btn ${bookmarked ? 'in-watchlist' : ''}`}
                   >
                     <Bookmark size={18} fill={bookmarked ? '#a7f3d0' : 'none'} />

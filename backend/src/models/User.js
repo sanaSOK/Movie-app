@@ -35,4 +35,39 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export const User = mongoose.model('User', userSchema);
+userSchema.post('save', async function(doc) {
+  try {
+    const data = doc.toObject();
+    data._id = doc._id.toString();
+    await UserMock.createWithId(data);
+  } catch (err) {
+    console.error('Failed to sync saved User to mock-db:', err);
+  }
+});
+
+userSchema.post('findOneAndUpdate', async function(res) {
+  if (res) {
+    try {
+      const data = res.toObject();
+      data._id = res._id.toString();
+      await UserMock.createWithId(data);
+    } catch (err) {
+      console.error('Failed to sync updated User to mock-db:', err);
+    }
+  }
+});
+
+import { UserMock } from '../config/mockDb.js';
+
+const MongooseUser = mongoose.model('User', userSchema);
+
+export const User = new Proxy(MongooseUser, {
+  get(target, prop, receiver) {
+    if (mongoose.connection.readyState !== 1) {
+      if (prop in UserMock) {
+        return UserMock[prop];
+      }
+    }
+    return Reflect.get(target, prop, receiver);
+  }
+});

@@ -89,10 +89,8 @@ export default function Search() {
         </div>
 
         <FilterSelector
-          selectedType={typeFilter}
           selectedCountry={countryFilter}
           selectedGenre={genreFilter}
-          onTypeChange={(val) => handleFilterChange('type', val)}
           onCountryChange={(val) => handleFilterChange('country', val)}
           onGenreChange={(val) => handleFilterChange('genre', val)}
         />

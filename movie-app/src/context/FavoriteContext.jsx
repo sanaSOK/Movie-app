@@ -1,31 +1,44 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { STORAGE_KEYS } from '../utils/constants';
+import { useAuth } from './AuthContext';
+import { request } from '../services/api';
 
 const FavoriteContext = createContext();
 
 export const useFavorite = () => useContext(FavoriteContext);
-// Alias useWatch to useFavorite for backward compatibility
 export const useWatch = useFavorite;
 
 export const FavoriteProvider = ({ children }) => {
-  const [watchlist, setWatchlist] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.WATCHLIST);
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { token } = useAuth();
 
+  const [watchlist, setWatchlist] = useState([]);
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.HISTORY);
     return saved ? JSON.parse(saved) : [];
   });
-
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.THEME);
     return saved || 'dark';
   });
 
+  // Sync Watchlist with Database (only if user is authenticated)
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.WATCHLIST, JSON.stringify(watchlist));
-  }, [watchlist]);
+    async function syncWatchlist() {
+      if (token) {
+        try {
+          const response = await request('/favorites', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setWatchlist(response.data || []);
+        } catch (err) {
+          console.error('Failed to sync watchlist with database:', err);
+        }
+      } else {
+        setWatchlist([]);
+      }
+    }
+    syncWatchlist();
+  }, [token]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(history));
@@ -43,15 +56,27 @@ export const FavoriteProvider = ({ children }) => {
     }
   }, [theme]);
 
-  const toggleWatchlist = (show) => {
-    setWatchlist((prev) => {
-      const exists = prev.some((item) => item.id === show.id);
+  const toggleWatchlist = async (show) => {
+    if (!token) return;
+    const exists = watchlist.some((item) => item.id === show.id);
+    try {
       if (exists) {
-        return prev.filter((item) => item.id !== show.id);
+        await request(`/favorites/${show.id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setWatchlist((prev) => prev.filter((item) => item.id !== show.id));
       } else {
-        return [...prev, { ...show, addedAt: new Date().toISOString() }];
+        await request('/favorites', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ movieId: show.id })
+        });
+        setWatchlist((prev) => [...prev, show]);
       }
-    });
+    } catch (err) {
+      console.error('Failed to update favorite in database:', err);
+    }
   };
 
   const isBookmarked = (showId) => {
@@ -72,7 +97,7 @@ export const FavoriteProvider = ({ children }) => {
           watchedAt: new Date().toISOString(),
         },
         ...filtered,
-      ].slice(0, 50); // Keep last 50 entries
+      ].slice(0, 50);
     });
   };
 
@@ -88,13 +113,13 @@ export const FavoriteProvider = ({ children }) => {
     <FavoriteContext.Provider
       value={{
         watchlist,
-        favorites: watchlist, // Alias favorites to watchlist
+        favorites: watchlist,
         history,
         theme,
         toggleWatchlist,
-        toggleFavorite: toggleWatchlist, // Alias toggleFavorite to toggleWatchlist
+        toggleFavorite: toggleWatchlist,
         isBookmarked,
-        isFavorite: isBookmarked, // Alias isFavorite to isBookmarked
+        isFavorite: isBookmarked,
         addToHistory,
         clearHistory,
         toggleTheme,

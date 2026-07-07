@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "mock-user-1783414935280-m0idf22cl",
+    "username": "heh",
+    "email": "hehe@gmail.com",
+    "password": "$2a$10$hDlo3axVh604eVfL4Floq.Rj8.Ji7a5tSw2erlzC73bVm9UyRBWGy",
+    "avatar": "/uploads/avatar-1783415085036-677029502.png",
+    "role": "user",
+    "createdAt": "2026-07-07T09:02:15.280Z"
+  },
+  {
+    "_id": "mock-user-1783415507738-u4e06vwmj",
+    "username": "hah",
+    "email": "haha@gmail.com",
+    "password": "$2a$10$tVoDyQwd2IeP/LjKJsjxC.nqZMTVf2JPo/VyaAo8L2EYyfFlvrV3S",
+    "avatar": "/uploads/avatar-1783415523054-721963425.png",
+    "role": "user",
+    "createdAt": "2026-07-07T09:11:47.738Z"
+  },
+  {
+    "_id": "mock-user-1783415901075-wkzrro4zz",
+    "username": "huh",
+    "email": "huh@gmail.com",
+    "password": "$2a$10$zxdSe/SCvIULxT3rT8u75uCao/1UsbKuskoInfK.bCJjzqj82tmti",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=default",
+    "role": "user",
+    "createdAt": "2026-07-07T09:18:21.075Z"
+  },
+  {
+    "_id": "mock-user-1783416141696-esqnw8jh4",
+    "username": "you",
+    "email": "you@gmail.com",
+    "password": "$2a$10$Ykwwc7roRqBVX6ZxnbwVvOCxVze76x1BfGReASPn8bzu5iKyuTuIC",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=default",
+    "role": "user",
+    "createdAt": "2026-07-07T09:22:21.696Z"
+  }
+]

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 
 // Router imports
 import authRoutes from './routes/authRoutes.js';
@@ -25,6 +26,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static upload resources
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Inject database mode header
+app.use('/api', (req, res, next) => {
+  res.setHeader('x-database-mode', mongoose.connection.readyState === 1 ? 'mongodb' : 'mock-json');
+  next();
+});
 
 // Mount routes
 app.use('/api/auth', authRoutes);

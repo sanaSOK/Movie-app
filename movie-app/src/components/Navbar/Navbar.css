@@ -45,3 +45,61 @@
   display: block;
   object-fit: contain;
 }
+
+/* User authentication navbar layout */
+.login-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  transition: all var(--transition-fast);
+  height: 36px;
+}
+
+.login-nav-btn:hover {
+  background: var(--primary-glow);
+  transform: translateY(-1px);
+}
+
+.user-profile-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  padding: 4px 12px 4px 4px;
+  border-radius: 20px;
+  height: 36px;
+  max-width: 160px;
+}
+
+.user-nav-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--bg-surface-hover);
+}
+
+.user-nav-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  .hide-mobile {
+    display: none;
+  }
+}

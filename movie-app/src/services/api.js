@@ -5,9 +5,12 @@ export async function request(endpoint, options = {}) {
   const url = `${baseUrl}${endpoint}`;
 
   const headers = {
-    'Content-Type': 'application/json',
     ...options.headers,
   };
+
+  if (!(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   const config = {
     ...options,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { movieService } from '../services/movieService';
 import { useFavorite } from '../context/FavoriteContext';
 import VideoPlayer from '../components/player/VideoPlayer';
@@ -9,12 +9,14 @@ import { Server, ArrowLeft, MessageSquare, Send } from 'lucide-react';
 export default function Watch() {
   const { id, episodeId } = useParams();
   const { addToHistory } = useFavorite();
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSource, setSelectedSource] = useState(null);
   const [localComments, setLocalComments] = useState([]);
   const [newCommentText, setNewCommentText] = useState('');
+  const [isTheaterMode, setIsTheaterMode] = useState(false);
 
   useEffect(() => {
     async function loadWatchData() {
@@ -22,7 +24,7 @@ export default function Watch() {
       try {
         const data = await movieService.getShowById(id);
         setShow(data);
-        
+
         // Find episode
         const episode = data.episodes.find((ep) => ep.id === episodeId) || data.episodes[0];
         if (episode) {
@@ -86,6 +88,15 @@ export default function Watch() {
     setNewCommentText('');
   };
 
+  const handleVideoEnded = () => {
+    if (!isMovie) {
+      const nextEp = show.episodes[episodeIndex + 1];
+      if (nextEp) {
+        navigate(`/watch/${show.id}/${nextEp.id}`);
+      }
+    }
+  };
+
   const allComments = [...localComments, ...(show.comments || [])];
   const isMovie = show.type === 'Movie';
 
@@ -98,19 +109,24 @@ export default function Watch() {
         </Link>
       </div>
 
-      <div className="watch-layout">
-        {/* Left Side: Video Player, Sources, Details, Comments */}
-        <div>
+      <div className={`watch-layout ${isTheaterMode ? 'theater-mode' : ''}`}>
+        {/* Row 1/Player Container */}
+        <div className="watch-player-container">
           {selectedSource && (
             <VideoPlayer
               sourceUrl={selectedSource.url}
               poster={show.banner}
-              onVideoEnded={() => console.log('Video ended')}
+              onVideoEnded={handleVideoEnded}
+              isTheaterMode={isTheaterMode}
+              onTheaterModeToggle={() => setIsTheaterMode(!isTheaterMode)}
             />
           )}
+        </div>
 
+        {/* Main Content: Sources, Details, Comments */}
+        <div className="watch-main-content">
           {/* Source Selectors */}
-          <div style={{ marginTop: '24px', backgroundColor: 'var(--bg-surface)', padding: '20px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)' }}>
+          <div style={{ backgroundColor: 'var(--bg-surface)', padding: '20px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)' }}>
             <h3 style={{ fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <Server size={16} />
               <span>Select Server Source</span>
@@ -175,23 +191,28 @@ export default function Watch() {
           </div>
         </div>
 
-        {/* Right Side: Sidebar Episodes List */}
-        <div>
+        {/* Sidebar: Episodes List */}
+        <div className="watch-sidebar">
           {!isMovie && (
             <div style={{ backgroundColor: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)' }}>
-              <h3 style={{ fontSize: '18px', fontFamily: 'var(--font-display)', marginBottom: '16px' }}>Episodes List</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '550px', overflowY: 'auto', paddingRight: '4px' }}>
-                {show.episodes.map((ep) => (
-                  <Link
-                    key={ep.id}
-                    to={`/watch/${show.id}/${ep.id}`}
-                    className={`episode-item ${activeEpisode.id === ep.id ? 'in-watchlist' : ''}`}
-                    style={{ justifyContent: 'space-between' }}
-                  >
-                    <span>Episode {ep.number}</span>
-                    <span style={{ fontSize: '11px', opacity: 0.7 }}>{ep.duration}</span>
-                  </Link>
-                ))}
+              <div className="episodes-header-block">
+                <h3 className="episodes-title" style={{ fontSize: '20px' }}>Episode</h3>
+                <span className="episodes-total">Total {show.episodes.length}</span>
+              </div>
+              <div className="episode-btn-grid">
+                {show.episodes.slice().reverse().map((ep) => {
+                  const isActive = activeEpisode.id === ep.id;
+
+                  return (
+                    <Link
+                      key={ep.id}
+                      to={`/watch/${show.id}/${ep.id}`}
+                      className={`episode-btn-card ${isActive ? 'active' : ''}`}
+                    >
+                      <span>{ep.number}</span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}

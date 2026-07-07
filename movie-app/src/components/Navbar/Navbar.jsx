@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, MessagesSquare, MessageSquareText, Compass, Search, Bookmark, History, Sun, Moon } from 'lucide-react';
+import { Home, MessagesSquare, MessageSquareText, Search, Bookmark, History, Sun, Moon, LogIn, LogOut } from 'lucide-react';
 import { useFavorite } from '../../context/FavoriteContext';
+import { useAuth } from '../../context/AuthContext';
+import { getAvatarUrl } from '../../utils/avatar';
 import logo from '../../assets/images/logo.png';
 import './Navbar.css';
 
 export default function Navbar() {
   const { watchlist, theme, toggleTheme } = useFavorite();
+  const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
 
   return (
@@ -29,10 +32,6 @@ export default function Navbar() {
             <MessageSquareText size={18} />
             <span>Request Drama</span>
           </Link>
-          <Link to="/search" className={`nav-link ${location.pathname === '/search' && !location.search.includes('focus=true') ? 'active' : ''}`}>
-            <Compass size={18} />
-            <span>Explore</span>
-          </Link>
           <Link to="/search?focus=true" className={`nav-link ${location.search.includes('focus=true') ? 'active' : ''}`}>
             <Search size={18} />
             <span>Search</span>
@@ -54,6 +53,27 @@ export default function Navbar() {
           <button onClick={toggleTheme} className="theme-toggle-btn" title="Toggle Theme">
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
+
+          {isAuthenticated ? (
+            <>
+              <Link to="/profile" className="user-profile-nav" title="View Profile" style={{ textDecoration: 'none' }}>
+                <img 
+                  src={getAvatarUrl(user.avatar, user.username)} 
+                  alt={user.username} 
+                  className="user-nav-avatar" 
+                />
+                <span className="user-nav-name hide-mobile">{user.username}</span>
+              </Link>
+              <button onClick={logout} className="action-btn" title="Log Out">
+                <LogOut size={20} />
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="login-nav-btn" title="Log In">
+              <LogIn size={16} />
+              <span className="hide-mobile">Log In</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>

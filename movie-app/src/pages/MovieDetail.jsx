@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { movieService } from '../services/movieService';
 import { useFavorite } from '../context/FavoriteContext';
+import { useAuth } from '../context/AuthContext';
 import Loading from '../components/Loading/Loading';
 import { Star, Bookmark, Play, Calendar, Globe, Info } from 'lucide-react';
 
 export default function MovieDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { toggleWatchlist, isBookmarked } = useFavorite();
+  const { isAuthenticated } = useAuth();
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,7 +59,7 @@ export default function MovieDetail() {
 
           <div className="detail-info-pane">
             <h1 className="detail-title">{show.title}</h1>
-            
+
             <div className="detail-meta-list">
               <span className="hero-rating">
                 <Star size={16} fill="#fbbf24" style={{ marginRight: '4px' }} />
@@ -77,15 +80,21 @@ export default function MovieDetail() {
             </div>
 
             <div className="detail-buttons-row">
-              <Link 
-                to={`/watch/${show.id}/${show.episodes[0]?.id || 'ep-1'}`} 
+              <Link
+                to={`/watch/${show.id}/${show.episodes[0]?.id || 'ep-1'}`}
                 className="btn-primary"
               >
                 <Play size={18} fill="#fff" />
                 <span>{isMovie ? 'Watch Movie' : 'Watch Episode 1'}</span>
               </Link>
-              <button 
-                onClick={() => toggleWatchlist(show)} 
+              <button
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    navigate('/login');
+                    return;
+                  }
+                  toggleWatchlist(show);
+                }}
                 className={`btn-secondary ${bookmarked ? 'in-watchlist' : ''}`}
               >
                 <Bookmark size={18} fill={bookmarked ? '#a7f3d0' : 'none'} />
@@ -102,18 +111,23 @@ export default function MovieDetail() {
 
         {/* Episodes Section */}
         {!isMovie && (
-          <div className="episodes-section">
-            <h3>Episodes ({show.episodes.length})</h3>
-            <div className="episodes-grid">
-              {show.episodes.map((ep) => (
-                <Link 
-                  key={ep.id} 
-                  to={`/watch/${show.id}/${ep.id}`} 
-                  className="episode-item"
-                >
-                  <span>Episode {ep.number}</span>
-                </Link>
-              ))}
+          <div className="episodes-section" style={{ backgroundColor: 'transparent', border: 'none', padding: 0 }}>
+            <div className="episodes-header-block">
+              <h3 className="episodes-title">Episode</h3>
+              <span className="episodes-total">Total {show.episodes.length}</span>
+            </div>
+            <div className="episode-btn-grid">
+              {show.episodes.slice().reverse().map((ep) => {
+                return (
+                  <Link
+                    key={ep.id}
+                    to={`/watch/${show.id}/${ep.id}`}
+                    className="episode-btn-card"
+                  >
+                    <span>{ep.number}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

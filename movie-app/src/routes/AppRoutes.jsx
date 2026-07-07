@@ -9,6 +9,9 @@ import Favorite from '../pages/Favorite';
 import History from '../pages/History';
 import FAQ from '../pages/FAQ';
 import Request from '../pages/Request';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
+import Profile from '../pages/Profile';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -24,6 +27,9 @@ export default function AppRoutes() {
           <Route path="/history" element={<History />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/request" element={<Request />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

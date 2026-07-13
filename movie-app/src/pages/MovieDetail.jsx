@@ -4,7 +4,7 @@ import { movieService } from '../services/movieService';
 import { useFavorite } from '../context/FavoriteContext';
 import { useAuth } from '../context/AuthContext';
 import Loading from '../components/Loading/Loading';
-import { Star, Bookmark, Play, Calendar, Globe, Info } from 'lucide-react';
+import { Star, Bookmark, Play, Calendar, Globe, Info, ArrowLeft } from 'lucide-react';
 
 export default function MovieDetail() {
   const { id } = useParams();
@@ -50,7 +50,18 @@ export default function MovieDetail() {
 
   return (
     <div className="details-container">
-      <div className="show-detail-layout">
+      <div style={{ marginTop: '20px', marginBottom: '16px' }}>
+        <button
+          onClick={() => navigate('/')}
+          className="btn-secondary"
+          style={{ padding: '8px 16px', fontSize: '13px' }}
+        >
+          <ArrowLeft size={16} />
+          <span>Back to Home</span>
+        </button>
+      </div>
+
+      <div className="show-detail-layout" style={{ paddingTop: 0 }}>
         {/* Detail Header Info Card */}
         <div className="detail-header-card">
           <div className="detail-poster-wrapper">

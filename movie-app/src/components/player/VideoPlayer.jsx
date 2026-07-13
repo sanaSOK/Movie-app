@@ -1,6 +1,27 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Monitor, Lock, Unlock, MoreVertical, PlayCircle, SkipForward, RotateCw, Check } from 'lucide-react';
 
+function getYouTubeEmbedUrl(url) {
+  if (!url) return '';
+  let videoId = '';
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[2].length === 11) {
+    videoId = match[2];
+  }
+  
+  if (videoId) {
+    let embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
+    const timeMatch = url.match(/[\?&]t=(\d+)s?|[\?&]start=(\d+)/);
+    if (timeMatch) {
+      const seconds = timeMatch[1] || timeMatch[2];
+      embedUrl += `&start=${seconds}`;
+    }
+    return embedUrl;
+  }
+  return url;
+}
+
 const SKIP_OPTIONS = [
   { label: 'None', value: 'none' },
   { label: '5 Second', value: 5 },
@@ -57,7 +78,7 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
   const [currentSpeed, setCurrentSpeed] = useState(1);
   const [showSubmenu, setShowSubmenu] = useState(null); // 'speed' | 'skip' | 'next' | 'cc' | null
   const [showToast, setShowToast] = useState('');
-  
+
   const [currentCc, setCurrentCc] = useState(() => {
     const saved = localStorage.getItem('player_cc_lang');
     return saved !== null ? saved : 'none'; // 'none' | 'english' | 'khmer'
@@ -75,7 +96,7 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
     }
     return 'none';
   });
-  
+
   const [autoNextEpisode, setAutoNextEpisode] = useState(() => {
     const saved = localStorage.getItem('player_auto_next');
     return saved !== null ? JSON.parse(saved) : true;
@@ -264,6 +285,35 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
     setShowSubmenu(showSubmenu === 'cc' ? null : 'cc');
   };
 
+  const isYouTube = sourceUrl && (sourceUrl.includes('youtube.com') || sourceUrl.includes('youtu.be') || sourceUrl.includes('embed'));
+
+  if (isYouTube) {
+    const embedUrl = getYouTubeEmbedUrl(sourceUrl);
+    return (
+      <div className={`custom-player-wrapper ${isTheaterMode ? 'theater-mode' : ''}`} style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderRadius: 'var(--radius-lg)', position: 'relative' }}>
+        <iframe
+          src={embedUrl}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ width: '100%', height: '100%', border: 'none' }}
+        />
+        {onTheaterModeToggle && (
+          <button 
+            className="player-btn" 
+            onClick={onTheaterModeToggle}
+            title={isTheaterMode ? "Default view" : "Theater view"}
+            aria-label="Toggle theater mode"
+            style={{ position: 'absolute', bottom: '15px', right: '15px', zIndex: 10, background: 'rgba(0, 0, 0, 0.65)', padding: '8px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)' }}
+          >
+            <Monitor size={18} style={{ color: isTheaterMode ? 'var(--primary)' : '#fff' }} />
+          </button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={`custom-player-wrapper ${isLocked ? 'is-locked' : ''}`}>
       <video
@@ -297,8 +347,8 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
 
       {/* Locked State Overlay Unlock Button */}
       {isLocked && (
-        <button 
-          className="player-unlock-btn" 
+        <button
+          className="player-unlock-btn"
           onClick={() => {
             setIsLocked(false);
             triggerToast("Controls unlocked");
@@ -311,33 +361,33 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
 
       {/* Main Controls Overlay */}
       <div className={`player-controls-overlay ${isLocked ? 'locked-hidden' : ''}`}>
-        
+
         {/* Top Controls Bar */}
         <div className="player-controls-top-bar">
-          <button 
-            className="player-btn" 
+          <button
+            className="player-btn"
             onClick={() => {
               setIsLocked(true);
               setIsSettingsOpen(false);
               triggerToast("Controls locked. Hover actions disabled.");
-            }} 
+            }}
             title="Lock screen controls"
           >
             <Lock size={18} />
           </button>
-          
+
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* CC Badge Button */}
-            <span 
-              className={`player-cc-badge ${currentCc !== 'none' ? 'active-cc' : ''}`} 
+            <span
+              className={`player-cc-badge ${currentCc !== 'none' ? 'active-cc' : ''}`}
               onClick={handleCcBtnClick}
               title="Closed Captions / Subtitles"
             >
               CC
             </span>
-            
-            <button 
-              className={`player-btn ${isSettingsOpen ? 'text-primary' : ''}`} 
+
+            <button
+              className={`player-btn ${isSettingsOpen ? 'text-primary' : ''}`}
               onClick={() => {
                 setIsSettingsOpen(!isSettingsOpen);
                 setShowSubmenu(null);
@@ -393,9 +443,9 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
                   <span>&lsaquo; Back to Settings</span>
                 </button>
                 {[0.5, 1, 1.25, 1.5, 2].map((speed) => (
-                  <button 
-                    key={speed} 
-                    className="player-settings-item" 
+                  <button
+                    key={speed}
+                    className="player-settings-item"
                     onClick={() => handleSpeedSelect(speed)}
                   >
                     <span>{speed === 1 ? '1x (Normal)' : `${speed}x`}</span>
@@ -410,9 +460,9 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
                   <span>&lsaquo; Back to Settings</span>
                 </button>
                 {SKIP_OPTIONS.map((opt) => (
-                  <button 
-                    key={opt.value} 
-                    className="player-settings-item" 
+                  <button
+                    key={opt.value}
+                    className="player-settings-item"
                     onClick={() => {
                       setAutoSkipDuration(opt.value);
                       setShowSubmenu(null);
@@ -431,8 +481,8 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
                 <button className="player-settings-item back-item" onClick={() => setShowSubmenu(null)}>
                   <span>&lsaquo; Back to Settings</span>
                 </button>
-                <button 
-                  className="player-settings-item" 
+                <button
+                  className="player-settings-item"
                   onClick={() => {
                     setAutoNextEpisode(true);
                     setShowSubmenu(null);
@@ -443,8 +493,8 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
                   <span>Enable Auto Next Ep</span>
                   {autoNextEpisode === true && <Check size={16} className="text-primary" />}
                 </button>
-                <button 
-                  className="player-settings-item" 
+                <button
+                  className="player-settings-item"
                   onClick={() => {
                     setAutoNextEpisode(false);
                     setShowSubmenu(null);
@@ -467,9 +517,9 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
                   { label: 'English', value: 'english' },
                   { label: 'Khmer', value: 'khmer' }
                 ].map((track) => (
-                  <button 
-                    key={track.value} 
-                    className="player-settings-item" 
+                  <button
+                    key={track.value}
+                    className="player-settings-item"
                     onClick={() => {
                       setCurrentCc(track.value);
                       setShowSubmenu(null);
@@ -514,18 +564,18 @@ export default function VideoPlayer({ sourceUrl, poster, onVideoEnded, isTheater
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               {onTheaterModeToggle && (
-                <button 
-                  className="player-btn" 
+                <button
+                  className="player-btn"
                   onClick={onTheaterModeToggle}
                   title={isTheaterMode ? "Default view" : "Theater view"}
                   aria-label="Toggle theater mode"
                 >
-                  <Monitor 
-                    size={20} 
-                    style={{ 
+                  <Monitor
+                    size={20}
+                    style={{
                       color: isTheaterMode ? 'var(--primary)' : 'inherit',
-                      filter: isTheaterMode ? 'drop-shadow(0 0 4px var(--primary-glow))' : 'none' 
-                    }} 
+                      filter: isTheaterMode ? 'drop-shadow(0 0 4px var(--primary-glow))' : 'none'
+                    }}
                   />
                 </button>
               )}

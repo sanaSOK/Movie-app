@@ -85,8 +85,8 @@
         "duration": "50m",
         "sources": [
           {
-            "label": "CDN Server",
-            "url": "https://www.w3schools.com/html/mov_bbb.mp4"
+            "label": "youtube",
+            "url": "https://www.youtube.com/watch?v=szmFD-LTWHM&t=77s"
           }
         ]
       },
@@ -235,7 +235,14 @@
         ]
       }
     ],
-    "comments": [],
+    "comments": [
+      {
+        "id": "c-1783873082211",
+        "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=user",
+        "text": "hi'",
+        "date": "Jul 12, 2026"
+      }
+    ],
     "_id": "mock-movie-javascript-logic",
     "createdAt": "2026-07-07T09:01:24.981Z"
   },

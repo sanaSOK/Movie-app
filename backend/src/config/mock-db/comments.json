@@ -1,5 +1,12 @@
 [
   {
+    "id": "c-1783873082211",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=user",
+    "text": "hi'",
+    "date": "Jul 12, 2026",
+    "movieId": "javascript-logic"
+  },
+  {
     "id": "c1",
     "user": "WebLearner",
     "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=learner",

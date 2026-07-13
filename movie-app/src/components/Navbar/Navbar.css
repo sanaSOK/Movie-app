@@ -103,3 +103,194 @@
     display: none;
   }
 }
+
+/* Hamburger toggle button */
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-surface-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hamburger-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent-glow);
+  transform: scale(1.05);
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+/* Non-mobile default styles */
+.mobile-profile-header {
+  display: none;
+}
+
+.mobile-only-actions {
+  display: none;
+}
+
+.nav-links-group {
+  display: contents;
+}
+
+/* Mobile responsive navigation */
+@media (max-width: 1024px) {
+  .hide-tablet {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .site-header .nav-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 76px; /* Directly under header */
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    
+    /* Premium full-width blue glass design */
+    background: rgba(10, 25, 47, 0.72); 
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: none;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2); /* Bottom border glow */
+    border-radius: 0; /* Stretches edge-to-edge */
+    padding: 24px;
+    gap: 12px;
+    z-index: 99;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(6, 182, 212, 0.05); /* Glow aura below menu */
+    
+    /* Accessibility & Transition */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity var(--transition-normal), transform var(--transition-normal), visibility var(--transition-normal);
+  }
+
+  .site-header .nav-menu.mobile-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-links-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  /* Link Styling */
+  .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition: all var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(6, 182, 212, 0.08);
+    border-color: rgba(6, 182, 212, 0.15);
+  }
+
+  /* Active State (Cyan highlighted glass container) */
+  .site-header .nav-menu.mobile-open .nav-link.active {
+    background: rgba(6, 182, 212, 0.15) !important;
+    border: 1px solid rgba(6, 182, 212, 0.3) !important;
+    color: #ffffff !important;
+  }
+
+  /* Mobile profile widget */
+  .mobile-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(6, 182, 212, 0.05); /* Cyan wash background */
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .mobile-profile-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--accent); /* Cyan border */
+    background-color: var(--bg-surface-hover);
+  }
+
+  .mobile-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .mobile-profile-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .mobile-profile-welcome {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Mobile secondary actions */
+  .mobile-only-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .menu-divider {
+    border: none;
+    border-top: 1px solid rgba(6, 182, 212, 0.15); /* Light cyan divider */
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .logout-nav-link {
+    color: var(--danger) !important;
+  }
+
+  .logout-nav-link:hover {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header .nav-menu {
+    top: 64px; /* Matches smaller mobile header height */
+  }
+}

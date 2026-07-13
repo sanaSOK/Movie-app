@@ -1,43 +1,38 @@
-import { MOCK_SHOWS, MOCK_UPCOMING } from './mockData';
-
-const delay = (ms = 300) => new Promise((resolve) => setTimeout(resolve, ms));
+import { request } from './api';
+import { MOCK_UPCOMING } from './mockData';
 
 export const movieService = {
   async getUpcomingShows() {
-    await delay(150);
     return MOCK_UPCOMING;
   },
   async getShows(filters = {}) {
-    await delay(200);
-    let results = [...MOCK_SHOWS];
+    const params = new URLSearchParams();
+    if (filters.type && filters.type !== 'All') params.append('type', filters.type);
+    if (filters.country && filters.country !== 'All') params.append('country', filters.country);
+    if (filters.genre && filters.genre !== 'All') params.append('genre', filters.genre);
+    if (filters.search) params.append('search', filters.search);
+    if (filters.page) params.append('page', filters.page);
+    if (filters.limit) params.append('limit', filters.limit);
 
-    if (filters.type && filters.type !== 'All') {
-      results = results.filter((show) => show.type.toLowerCase() === filters.type.toLowerCase());
-    }
-
-    if (filters.search) {
-      const q = filters.search.toLowerCase();
-      results = results.filter(
-        (show) =>
-          show.title.toLowerCase().includes(q) ||
-          show.synopsis.toLowerCase().includes(q) ||
-          show.genres.some((g) => g.toLowerCase().includes(q))
-      );
-    }
-
-    return results;
+    const queryString = params.toString() ? `?${params.toString()}` : '';
+    const response = await request(`/movies${queryString}`);
+    
+    return response.data?.movies || [];
   },
 
   async getShowById(id) {
-    await delay(200);
-    const show = MOCK_SHOWS.find((item) => item.id === id);
-    if (!show) throw new Error('Show not found');
-    return show;
+    const response = await request(`/movies/${id}`);
+    return response.data;
   },
 
-  async getFeaturedSpotlight() {
-    await delay(100);
-    // Vincenzo is our spotlight show
-    return MOCK_SHOWS.find((show) => show.id === 'vincenzo-2021');
-  },
+  async addComment(movieId, commentText, token) {
+    const response = await request(`/movies/${movieId}/comment`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ text: commentText })
+    });
+    return response.data;
+  }
 };

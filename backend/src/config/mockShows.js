@@ -56,7 +56,7 @@ export const MOCK_SHOWS = [
       title: `Episode ${i + 1}: Mastering Flexbox and Grids`,
       duration: "50m",
       sources: [
-        { label: "CDN Server", url: "https://www.w3schools.com/html/mov_bbb.mp4" }
+        { label: "youtube", url: "https://www.youtube.com/watch?v=szmFD-LTWHM&t=77s" }
       ]
     })),
     comments: []

@@ -5,6 +5,7 @@ import { ENV } from './config/env.js';
 // Connect to MongoDB
 connectDB();
 
+// Trigger DB reload
 const PORT = ENV.PORT;
 
 app.listen(PORT, () => {
